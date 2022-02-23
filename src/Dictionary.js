@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Results from "./Results";
 import "./Dictionary.css";
 
 export default function Dictionary() {
 
+    //make state for when the keyword changes
     let [keyword, setKeyword] = useState("");
+    let [results, setResults] = useState(null); // object {}
 
     function handleResponse(response) {
         //console.log(response); to check the response
+        //console.log(response.data[0]); after playing around only want first data point;
+        //console.log(response.data[0].meanings[0].definitions[0].definition);
 
-        //console.log(response.data[0]); after playing around only want first data point
+        setResults(response.data[0])
     }
 
 
@@ -45,6 +50,8 @@ export default function Dictionary() {
                 
                 </input>
             </form>
+
+            <Results results={results} />
         </div>
 
     );
