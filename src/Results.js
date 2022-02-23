@@ -1,14 +1,29 @@
 import React from "react";
+import Meaning from "./Meaning.js";
 
 
 export default function Results(props) {
-    //console.log(props.results)
+    //console.log(props.results);
     
     // if something in results show results
     if (props.results) {
             return (
             <div className="Results">
-                Hello from results
+                <h2>
+                    {props.results.word}
+                </h2>
+
+                {props.results.meanings.map(function(meaning, index) {
+                    //return meaning.definitions[0].definition; // "definitions[0].definition" -> get this by console log response
+                    
+                    //send meaning to new component meaning
+                    return (
+                        <div key={index}> 
+                        <Meaning meaning={meaning} /> 
+                        </div>
+                    );
+
+                })}
 
 
 
