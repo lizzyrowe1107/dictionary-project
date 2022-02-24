@@ -3,11 +3,12 @@ import axios from "axios";
 import Results from "./Results";
 import "./Dictionary.css";
 
-export default function Dictionary() {
+export default function Dictionary(props) {
 
     //make state for when the keyword changes
-    let [keyword, setKeyword] = useState("");
-    let [results, setResults] = useState(null); // object {}
+    let [keyword, setKeyword] = useState(props.defaultKeyword);
+    let [results, setResults] = useState(null); 
+    let [loaded, setLoaded] = useState(false);
 
     function handleResponse(response) {
         //console.log(response); to check the response
@@ -17,24 +18,21 @@ export default function Dictionary() {
         setResults(response.data[0])
     }
 
-
-    function search(event) {
-        event.preventDefault();
-
-        
+    function search() {
 
         let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
 
-
-
-
         //make request using axios
-
         axios.get(apiUrl).then(handleResponse)
 
     }
 
-    
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        search();
+        
+    }
 
     function handleKeywordChange(event) {
         //console.log(event) to find where the value is
@@ -42,17 +40,36 @@ export default function Dictionary() {
         setKeyword(event.target.value);
     }
 
-    return (
+    function load() {
+        setLoaded(true);
+        search();
+    }
 
-        <div className="Dictionary">
-            <form onSubmit={search}>
-                <input type="search" onChange={handleKeywordChange}>
-                
-                </input>
-            </form>
+    if (loaded) {
+        return (
 
-            <Results results={results} />
-        </div>
+            <div className="Dictionary">
+                <section>
+                    <form onSubmit={handleSubmit}>
+                        <input type="search" onChange={handleKeywordChange}>
+                        
+                        </input>
+                    </form>
+                    <div className="hint">
+                        Suggested words: sunset, wine, yoga, forest...
+                    </div>
+                </section>
+    
+                <Results results={results} />
+            </div>
+    
+        );
+    } else {
+        load();
+        return "Loading..."
+    }
 
-    );
+
+
+    
 }

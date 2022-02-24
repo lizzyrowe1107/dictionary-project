@@ -14,13 +14,13 @@ export default function Meaning(props) {
                 return (
                     <div key={index}>
                         <div>
-                        <strong>Definition:</strong> {definition.definition}
-                        <br />
-                        <strong>Example:</strong>
-                        <em> {definition.example}</em>
-                        <br />
+                            <strong>Definition:</strong> {definition.definition}
+                            <br />
+                            <strong>Example:</strong>
+                            <em> {definition.example}</em>
+                            <br />
 
-                        <Synonyms synonyms={definition.synonyms} />
+                            <Synonyms synonyms={definition.synonyms} />
                         
 
                         </div>

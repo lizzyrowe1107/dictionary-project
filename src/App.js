@@ -14,7 +14,7 @@ export default function App() {
 
         <main>
 
-          <Dictionary />
+          <Dictionary defaultKeyword="wine" />
 
         </main>
 
